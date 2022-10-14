@@ -40,6 +40,21 @@ def _add(Session: Session):
         assert session.query(Item).count() == 1
         assert session.query(Cart).count() == 1
 
+def _add_too_many(Session: Session):
+    with Session.begin() as session:
+        assert session.query(Item).count() == 0
+        assert session.query(Cart).count() == 0
+        item = {
+            "external_id": 1,
+            "name": "item",
+            "value": 1,
+            "value2": 1,
+        }
+
+        add_item("chocolate_cokkie", item, session)
+        assert session.query(Item).count() == 1
+        assert session.query(Cart).count() == 1
+
 
 def _add_multiple(Session: Session):
     with Session.begin() as session:
@@ -179,6 +194,9 @@ def test_update(setup: Session):
 
 def test_add_same(setup: Session):
     _add_same(setup)
+    
+def test_add_too_man(setup: Session):
+    _add_too_many(setup)
 
 
 def test_multiple_cookies(setup: Session):
@@ -208,6 +226,10 @@ def test_psql_update(setup_psql: Session):
 def test_psql_add_same(setup_psql: Session):
     _add_same(setup_psql)
 
+
+@pytest.mark.slow
+def test_psql_add_too_many(setup_psql: Session):
+    _add_too_many(setup_psql)
 
 @pytest.mark.slow
 def test_psql_multiple_cookies(setup_psql: Session):
