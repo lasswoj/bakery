@@ -6,3 +6,4 @@ eval "$(conda shell.bash hook)"
 conda activate ./venv
 poetry install
 # doesn't create link on windows just copy of file
+source $PWD/script/create_hook.sh

@@ -3,6 +3,7 @@ from http import HTTPStatus
 import uuid
 from src.db import add_item, setup_envvar_engine, setup_session
 from src.logger import rootLogger
+
 app = Flask(__name__)
 
 
@@ -14,7 +15,7 @@ def validate_request(r_json: dict) -> bool:
     if not isinstance(r_json, dict):
         rootLogger.error("no json found in request")
         return False
-    if not str(r_json.get("external_id","")):
+    if not str(r_json.get("external_id", "")):
         rootLogger.error("no required parameter'external_id'")
         return False
     try:
