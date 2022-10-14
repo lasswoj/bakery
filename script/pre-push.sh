@@ -1,3 +1,4 @@
+#!/bin/sh
 flake8 src
 if [ $? -eq 0 ]
 then
@@ -5,3 +6,4 @@ then
 else
     echo "PLZ format your code"
 fi
+git lfs pre-push "$@"
