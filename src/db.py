@@ -1,8 +1,8 @@
-
 from sqlalchemy.engine import Engine
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from src.tables import Cart, Item, Base
+from src.logger import rootLogger
 import os
 
 
@@ -17,6 +17,8 @@ def setup_envvar_engine() -> Engine:
 
 def setup_engine(uri="sqlite:///:memory:") -> Engine:
     engine = create_engine(uri)
+    last = uri.split("/")[0]
+    rootLogger.debug(f"connected to {last}")
     Base.metadata.create_all(engine)
     return engine
 
