@@ -14,7 +14,7 @@ class Item(Base):
     value = Column(Integer, nullable=True)
     cart_id = Column(ForeignKey("cart.id"))
 
-    def __init__(self, external_id,*args, name=None, value=None, **kwargs):
+    def __init__(self, external_id, *args, name=None, value=None, **kwargs):
         self.external_id = external_id
         self.name = name
         self.value = value
