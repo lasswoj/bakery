@@ -24,8 +24,14 @@ def setup_engine(uri="sqlite:///:memory:") -> Engine:
     return engine
 
 
-def setup_session(engine: Engine) -> Session:
-    return sessionmaker(bind=engine)
+def setup_session(engine: Engine, restore = None) -> Session:
+    try:
+        return sessionmaker(bind=engine)
+    except Exception as e:
+        rootLogger.debug(f"reconnecting because of {e}")
+        engine = restore()
+        return sessionmaker(bind=engine)
+        
 
 
 def add_item(cart_id: str, j_item: dict, session: Session):
