@@ -11,7 +11,8 @@ def setup_envvar_engine() -> Engine:
     u_password = os.getenv("u_password", "admin")
     host = os.getenv("host", "localhost")
     db_name = os.getenv("db_name", "postgres")
-    uri = f"postgresql://{u_name}:{u_password}@{host}/{db_name}"
+    db_type  = os.getenv("db_type", "postgresql")
+    uri = f"{db_type}://{u_name}:{u_password}@{host}/{db_name}"
     return setup_engine(uri)
 
 
