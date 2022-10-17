@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from src.tables import Cart, Item, Base
 from src.logger import rootLogger
 import os
+from app import engine
 
 
 def setup_envvar_engine() -> Engine:
@@ -24,9 +25,9 @@ def setup_engine(uri="sqlite:///:memory:") -> Engine:
     return engine
 
 
-def setup_session(engine: Engine, restore = None) -> Session:
+def setup_session(eng: Engine, restore = None) -> Session:
     try:
-        return sessionmaker(bind=engine)
+        return sessionmaker(bind=eng)
     except Exception as e:
         rootLogger.debug(f"reconnecting because of {e}")
         engine = restore()
