@@ -41,7 +41,7 @@ def post():
             cart_id = str(uuid.uuid1())
         res.set_cookie(key="cart_id", value=cart_id, max_age=259200)
         if validate_request(r_json):
-            with setup_session(engine).begin() as session:
+            with setup_session(engine, setup_envvar_engine).begin() as session:
                 add_item(cart_id, r_json, session)
                 rootLogger.info(f"item {r_json} added")
     except Exception as e:
