@@ -11,10 +11,11 @@ if something goes wrong :
 * add the pre-push hooks script/create_hook.sh
 
 connection to dynamo is set up on few envvars
-* u_name = database username
-* u_password = password for u_name 
-* host = database host
-* db_name = name of database
+* u_name = database username (default is "postgres")
+* u_password = password for u_name (default is "admin")
+* host = database host (default is "localhost")
+* db_name = name of database (default is "postgres")
+* db_type = type of database (default is "postgres")
 
 
 to run tests simply set the envvars and run the "python app.py" (to start the server) and "pytest test"
